@@ -14,7 +14,29 @@
             <label for="password" class="form-label">Contraseña</label>
             <input type="password" name="password" id="password" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary" >Ingresar</button>
+        <div class="custom-control custom-checkbox small">
+            <input type="checkbox" class="custom-control-input" id="customCheck">
+            <label class="custom-control-label" for="customCheck">Remember Me</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+
+        <hr>
+        <a href="#" class="btn btn-danger btn-block mb-2">
+            <i class="fab fa-google me-2"></i> Iniciar con Google
+        </a>
+<hr>
+        <a href="#" class="btn btn-primary btn-block">
+            <i class="fab fa-facebook-f me-2"></i> Iniciar con Facebook
+        </a>
+    </form>
+    <hr>
+    <div class="text-center">
+        <a class="small" href="#">Forgot Password?</a>
+    </div>
+    <div class="text-center">
+        <a class="small" href="#">Create an Account!</a>
+    </div>
+
     </form>
 
 </x-layout>
