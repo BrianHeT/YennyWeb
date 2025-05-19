@@ -31,11 +31,12 @@
     </form>
     <hr>
     <div class="text-center">
-        <a class="small" href="#">Forgot Password?</a>
+        <a class="small" href="#">Olvidaste tu contraseña?</a>
     </div>
     <div class="text-center">
-        <a class="small" href="#">Create an Account!</a>
-    </div>
+    <a class="small" href="{{ route('register') }}">Create una cuenta!</a>
+</div>
+
 
     </form>
 

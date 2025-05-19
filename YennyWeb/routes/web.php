@@ -10,7 +10,7 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'home'])
 
 Route::get('/quienes-somos', [\App\Http\Controllers\HomeController::class, 'about'])
     ->name('about');
-    
+
 Route::get('libros/listado', [\App\Http\Controllers\BookController::class, 'index'])
     ->name('books.index');
 
@@ -54,3 +54,9 @@ Route::post('iniciar-sesion', [\App\Http\Controllers\AuthController::class, 'aut
 
 Route::post('/cerrar-sesion', [\App\Http\Controllers\AuthController::class, 'logout'])
     ->name('auth.logout');
+
+Route::get('/register', [\App\Http\Controllers\RegisterController::class, 'create'])
+    ->name('register');
+
+Route::post('/register', [\App\Http\Controllers\RegisterController::class, 'register'])
+    ->name('register.store');
