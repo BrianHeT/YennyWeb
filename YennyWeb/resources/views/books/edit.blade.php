@@ -105,11 +105,12 @@
         </div>
 
         <div class="mb-3">
-            <label for="cover" class="form-label">
-                Portada <span class="small" >(Opcional)</span>
-            </label>
-            <input type="file" name="cover" id="cover" class="form-control">
-        </div>
+        <label for="image" class="form-label">Portada del Libro</label>
+        <input type="file" name="image" id="image" class="form-control">
+        @if ($book->image)
+            <img src="{{ asset('storage/' . $book->image) }}" alt="Portada actual" style="max-width: 200px; height: auto;" class="mt-2">
+        @endif
+    </div>
 
         <div class="mb-3">
             <label for="cover_description" class="form-label">

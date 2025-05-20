@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -39,6 +40,7 @@ class BookController extends Controller
             'editorial'     =>  'required',
             'author'         =>  'required',
             'synopsis'      => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ], [
             'title.required'    => 'el título debe tener un valor',
             'title.min'         => 'El titulo debe tener al menos :min caracteres',
@@ -46,10 +48,18 @@ class BookController extends Controller
             'price.numeric'     => 'el precio debe ser un valor numerico',
             'format.required'   =>  'el formato debe tener un valor',
             'edutiruak.required' => 'la editorial debe tener un valor',
-            'author.required'    => 'el autor debe tener un valor'
+            'author.required'    => 'el autor debe tener un valor',
+            'image' => 'La imagen debe ser un archivo de tipo imagen y no debe exceder los 2MB',
         ]);
 
         $input = $request->all();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('public', $filename); 
+            $input['image'] = $filename;
+        }
+
 
         Book::create($input);
 
@@ -98,6 +108,7 @@ class BookController extends Controller
             'editorial'     =>  'required',
             'author'         =>  'required',
             'synopsis'      => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ], [
             'title.required'    => 'el título debe tener un valor',
             'title.min'         => 'El titulo debe tener al menos :min caracteres',
@@ -105,12 +116,24 @@ class BookController extends Controller
             'price.numeric'     => 'el precio debe ser un valor numerico',
             'format.required'   =>  'el formato debe tener un valor',
             'edutiruak.required' => 'la editorial debe tener un valor',
-            'author.required'    => 'el autor debe tener un valor'
+            'author.required'    => 'el autor debe tener un valor',
+            'image' => 'La imagen debe ser un archivo de tipo imagen y no debe exceder los 2MB',
         ]);
 
         $book = Book::findOrFail($id);
 
         $book->update($request->all());
+
+        if ($request->hasFile('image')) {
+            
+            if ($book->image) {
+                Storage::delete('public/' . $book->image); 
+            }
+            $image = $request->file('image');
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('public', $filename); 
+            $input['image'] = $filename; 
+        }
 
         return redirect()
             ->route('books.index')

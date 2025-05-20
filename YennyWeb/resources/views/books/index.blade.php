@@ -8,7 +8,7 @@
     <h1 class="mb-4">Listado de Libros</h1>
     @auth
 
-        <p class="mb-3"> <a href="{{ route('books.create') }}">Publicar un Libro</a></p>
+        <p class="mb-3 "> <a href="{{ route('books.create') }}" class="btn btn-success">Publicar un Libro</a></p>
 
     @endauth
 

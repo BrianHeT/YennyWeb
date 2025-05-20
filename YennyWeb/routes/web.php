@@ -60,3 +60,38 @@ Route::get('/register', [\App\Http\Controllers\RegisterController::class, 'creat
 
 Route::post('/register', [\App\Http\Controllers\RegisterController::class, 'register'])
     ->name('register.store');
+
+    Route::get('novedades/lista', [\App\Http\Controllers\ArticleController::class, 'index'])
+    ->name('articles.index');
+
+Route::get('novedades/{id}', [\App\Http\Controllers\ArticleController::class, 'view'])
+    ->name('articles.view')
+    ->whereNumber('id');
+
+Route::get('novedades/publicar', [\App\Http\Controllers\ArticleController::class, 'create'])
+    ->name('articles.create')
+    ->middleware('auth');
+
+Route::post('novedades/publicar', [\App\Http\Controllers\ArticleController::class, 'store'])
+    ->name('articles.store')
+    ->middleware('auth');
+
+Route::get('novedades/{id}/eliminar', [\App\Http\Controllers\ArticleController::class, 'delete'])
+    ->name('articles.delete')
+    ->whereNumber('id')
+    ->middleware('auth');
+
+Route::delete('novedades/{id}/eliminar', [\App\Http\Controllers\ArticleController::class, 'destroy'])
+    ->name('articles.destroy')
+    ->whereNumber('id')
+    ->middleware('auth');
+
+Route::get('novedades/editar/{id}', [\App\Http\Controllers\ArticleController::class, 'edit'])
+    ->name('articles.edit')
+    ->whereNumber('id')
+    ->middleware('auth');
+
+Route::put('novedades/editar/{id}', [\App\Http\Controllers\ArticleController::class, 'update'])
+    ->name('articles.update')
+    ->whereNumber('id')
+    ->middleware('auth');

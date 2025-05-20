@@ -5,7 +5,11 @@
     <x-slot:title> Detalle del libro {{ $book->title }} </x-slot:title>
 
     <h1 class="mb-3" >{{ $book->title }}</h1>
-    {{-- TODO: agregar la imagen de la portada --}}
+    @if ($book->image)
+    <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book->title }}" style="max-width: 300px; height: auto;" class="mb-3">
+@else
+    <p class="mb-3">No hay portada disponible.</p>
+@endif
     <dl>
         <dt>Precio:</dt>
         <dd>${{ $book->price }}</dd>
