@@ -1,75 +1,387 @@
-html, body, #app {
-    
-    height: 100%;
+/* ====================================
+         RESET Y CONFIGURACIÓN BASE
+======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.fondo-biblioteca {
-    background: url('/storage/biblioteca.jpg') no-repeat center center fixed;
-    background-size: cover;
-    min-height: 100vh;
-    color: white;
+html, body {
+  height: 100%;
+  scroll-behavior: smooth;
 }
 
-.fondo-biblioteca2 {
-    background: url('/storage/biblioteca2.jpg') no-repeat center center fixed;
-    background-size: cover;
-    min-height: 100vh;
-    color: white;
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #f8f9fa;
+  color: #333;
 }
 
-.btn-home{
-    border-radius: 25px;
-    padding: 10px 25px;
-    font-size: 1.1rem;
-    background-color: #004e59;
-    color: #f5f5dc;
-    border: none;
-    transition: background-color 0.3s ease;    
+/* ====================================
+              HERO SECTION
+======================================== */
+/* HERO SECTION */
+/* HERO SECTION */
+.hero-section {
+  position: relative;
+  /* Usa una imagen de fondo vibrante; ajusta la ruta si es necesario */
+  background: url('../storage/hero_books_vibrant.jpg') no-repeat center center/cover;
+  min-height: 75vh;  /* Se reduce la altura (anteriormente 90vh) para una apariencia más compacta */
 }
 
-.btn-home:hover{
-    background-color: black;
-    color: white;
-}
-        
-
-.navbar {
-    padding: 0; 
-    height: 60px; 
-    background-color: #343a40; 
-    display: flex;
-    align-items: center; 
-}
-.item-nav{
-    color: #f5f5dc;
-}
-
-.item-nav:hover{
-    color: white;
-}
-/*barra navegaciom*/
-.nav{
-    
-    color: #f5f5dc;
-    background-color:#004e59 ;
-    
-}
-nav-item{
-    color: #f5f5dc;
-}
-#app {
- display: grid;
- grid-template-rows: 56px 1fr 100px;
-}
-.footer {
- display: flex;
- justify-content: center;
- align-items: center;
- height: 100px;
-  bottom: 0;
+.hero-section .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  /* Degradado que combina tonos vibrantes y oscuros */
+  background: linear-gradient(135deg, #088647b3, rgba(158, 153, 153, 0.5));
+  z-index: 1;
+}
 
+.hero-section .content {
+  position: relative;
+  z-index: 2;
+  padding: 1.5rem;
+  text-align: center;
+  color: #fff;
 }
-.footer p {
- margin: 0;
+
+/* Botón personalizado */
+.btn-discover {
+  background-color: #088647;
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  padding: 10px 25px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.btn-discover:hover,
+.btn-discover:focus {
+  background-color: #067038; /* Color ligeramente más oscuro para hover */
+  transform: translateY(-2px);
+}
+
+/* Bloque "Regalo Especial" actualizado */
+.book-gift {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;  /* Bordes más redondeados para un aspecto menos cuadrado */
+  max-width: 300px;
+  width: 100%;
+}
+
+/* Estilizado de las imágenes dentro del bloque */
+.book-slider img {
+  max-height: 70px;
+  transition: transform 0.3s ease;
+  border-radius: 3px;
+}
+
+.book-slider img:hover {
+  transform: scale(1.05);
+}
+
+/* Animaciones personalizadas */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.animate-slideIn { animation: slideIn 1s ease forwards; }
+.animate-fadeIn  { animation: fadeIn 1.5s ease forwards; }
+.animate-popIn   { animation: popIn 1s ease forwards; }
+
+.delay-1 { animation-delay: 0.3s; }
+.delay-2 { animation-delay: 0.6s; }
+.delay-3 { animation-delay: 0.9s; }
+
+
+
+
+
+
+
+
+/* ====================================
+             CARRUSEL DE IMÁGENES
+======================================== */
+.carousel-inner > .carousel-item {
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.carousel-inner > .carousel-item > img {
+  object-fit: cover;
+  height: 70vh;
+}
+
+/* ====================================
+          SECCIÓN: LIBROS DESTACADOS
+======================================== */
+.featured-books {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+}
+
+.featured-books h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-align: center;
+  animation: slideIn 1s ease-out;
+}
+
+/* Animación para el título de recomendaciones */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.book-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.book-card img {
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.book-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.book-card p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* ====================================
+                 FOOTER
+======================================== */
+.footer {
+  background-color: #343a40;
+  color: #fff;
+  text-align: center;
+  padding: 20px 10px;
+}
+
+/* ====================================
+               RESPONSIVE
+======================================== */
+@media (max-width: 768px) {
+  .hero-section .content h1.display-4 {
+    font-size: 2.5rem;
+  }
+  .hero-section .content p.lead {
+    font-size: 1.2rem;
+  }
+  .featured-books h2 {
+    font-size: 2rem;
+  }
+}
+/* ====================================
+         Animaciones Personalizadas
+======================================== */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 1s ease forwards;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.animate-popIn {
+  animation: popIn 1s ease forwards;
+}
+
+/* Delays para añadir dinamismo */
+.delay-1 {
+  animation-delay: 0.3s;
+}
+
+.delay-2 {
+  animation-delay: 0.6s;
+}
+
+.delay-3 {
+  animation-delay: 0.9s;
+}
+/* Cambiar el fondo de la barra de navegación a azul pastel */
+.navbar {
+  background-color: #055e31 !important; /* Azul pastel */
+}
+
+/* Personaliza la sección informativa */
+.info-section {
+  background-color: #088647; /* Azul pastel */
+  border-radius: 20px; /* Bordes redondeados */
+  /* Opcional: agrega un poco de margen lateral para separarlo de los bordes del viewport */
+  margin: 0 1rem;
+}
+
+/* Asegurarse de que los textos tengan buen contraste */
+.info-section h2,
+.info-section h3,
+.info-section p {
+  color: white;
+}
+
+/* Animaciones personalizadas (si aún no se incluyen) */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 1s ease forwards;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.animate-popIn {
+  animation: popIn 1s ease forwards;
+}
+
+/* Delays para animaciones */
+.delay-1 {
+  animation-delay: 0.3s;
+}
+
+.delay-2 {
+  animation-delay: 0.6s;
+}
+
+.delay-3 {
+  animation-delay: 0.9s;
+}
+/* Aseguramos que los enlaces y elementos de navegación tengan color blanco */
+.navbar a,
+.navbar .nav-item,
+.navbar .navbar-brand {
+  color: #fff !important;
+}
+
+/* Si deseas cambiar el color en el estado hover */
+.navbar a:hover,
+.navbar .nav-item:hover {
+  color: #f8f9fa !important;
+}
+/* Separa el bloque del hero con un margen extra */
+.inspirational-text {
+    margin-top: auto;
+}
+
+/* Contenedor personalizado con fondo redondeado y sutil sombra */
+.custom-inspiration {
+    background-color: #088647b3;  /* O utiliza el color que prefieras, se relaciona con bg-secondary */
+    opacity: 0.9;             /* Un poco de transparencia para suavizar el fondo */
+    padding: 2rem;
+    border-radius: 30px;       /* Bordes redondeados en vez de cuadrados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 800px;          /* Ancho máximo para que no se extienda demasiado */
+}
+
+/* Animaciones (si aún no las tienes definidas en tu CSS global) */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-50px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.animate-slideIn {
+    animation: slideIn 1s ease forwards;
+}
+
+.animate-fadeIn {
+    animation: fadeIn 1.5s ease forwards;
+}
+
+/* Delays para animaciones */
+.delay-1 { animation-delay: 0.3s; }
