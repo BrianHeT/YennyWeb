@@ -1,0 +1,75 @@
+html, body, #app {
+    
+    height: 100%;
+}
+
+.fondo-biblioteca {
+    background: url('/storage/biblioteca.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    color: white;
+}
+
+.fondo-biblioteca2 {
+    background: url('/storage/biblioteca2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    color: white;
+}
+
+.btn-home{
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-size: 1.1rem;
+    background-color: #004e59;
+    color: #f5f5dc;
+    border: none;
+    transition: background-color 0.3s ease;    
+}
+
+.btn-home:hover{
+    background-color: black;
+    color: white;
+}
+        
+
+.navbar {
+    padding: 0; 
+    height: 60px; 
+    background-color: #343a40; 
+    display: flex;
+    align-items: center; 
+}
+.item-nav{
+    color: #f5f5dc;
+}
+
+.item-nav:hover{
+    color: white;
+}
+/*barra navegaciom*/
+.nav{
+    
+    color: #f5f5dc;
+    background-color:#004e59 ;
+    
+}
+nav-item{
+    color: #f5f5dc;
+}
+#app {
+ display: grid;
+ grid-template-rows: 56px 1fr 100px;
+}
+.footer {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 100px;
+  bottom: 0;
+  width: 100%;
+
+}
+.footer p {
+ margin: 0;
+}

@@ -10,5 +10,5 @@ class Book extends Model
 
     protected $primaryKey = 'book_id';
 
-    protected $fillable = ['title', 'price', 'release_date','format','editorial','author' ,'synopsis'];
+    protected $fillable = ['title', 'price', 'release_date','format','editorial','author' ,'synopsis','image'];
 }

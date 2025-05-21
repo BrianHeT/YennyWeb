@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    <form action="{{ route('books.store') }}" method="post">
+    <form action="{{ route('books.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Título</label>
@@ -104,15 +104,18 @@
         </div>
 
         <div class="mb-3">
-        <label for="image" class="form-label">Portada del Libro</label>
-        <input type="file" name="image" id="image" class="form-control">
-    </div>
-
-        <div class="mb-3">
-            <label for="cover_description" class="form-label">
-                Descripcion de la Portada <span class="small" >(Opcional)</span>
-            </label>
-            <input type="text" name="cover_description" id="cover_description" class="form-control">
+            <label for="image" class="form-label">Portada del Libro</label>
+            <input
+                type="file"
+                name="image"
+                id="image"
+                class="form-control @error('image') is-invalid @enderror" {{-- ¡AGREGADO! --}}
+                @error('image') aria-invalid="true" aria-errormessage="error-image" @enderror {{-- ¡AGREGADO! --}}
+                accept="image/*" {{-- ¡RECOMENDADO! --}}
+            >
+            @error('image') {{-- ¡AGREGADO! --}}
+                <div id="error-image" class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <button type="submit" class="btn btn-primary">Publicar</button>

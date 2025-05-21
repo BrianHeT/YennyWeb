@@ -105,12 +105,19 @@
         </div>
 
         <div class="mb-3">
-        <label for="image" class="form-label">Portada del Libro</label>
-        <input type="file" name="image" id="image" class="form-control">
-        @if ($book->image)
-            <img src="{{ asset('storage/' . $book->image) }}" alt="Portada actual" style="max-width: 200px; height: auto;" class="mt-2">
-        @endif
-    </div>
+            <label for="image" class="form-label">Portada del Libro</label>
+            <input
+                type="file"
+                name="image"
+                id="image"
+                class="form-control @error('image') is-invalid @enderror" {{-- ¡AGREGADO! --}}
+                @error('image') aria-invalid="true" aria-errormessage="error-image" @enderror {{-- ¡AGREGADO! --}}
+                accept="image/*" {{-- ¡RECOMENDADO! --}}
+            >
+            @error('image') {{-- ¡AGREGADO! --}}
+                <div id="error-image" class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="mb-3">
             <label for="cover_description" class="form-label">
