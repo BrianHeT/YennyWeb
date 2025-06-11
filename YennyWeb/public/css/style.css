@@ -1,6 +1,8 @@
 /* ====================================
          RESET Y CONFIGURACIÓN BASE
 ======================================== */
+
+
 * {
   margin: 0;
   padding: 0;
@@ -14,10 +16,40 @@ html, body {
 
 body {
   font-family: 'Roboto', sans-serif;
-  background: #f8f9fa;
+  background: linear-gradient(to bottom, #088647 0%, #c8f2d1 100%);
+  color: #333;
+  
+}
+main{
+  background: linear-gradient(to bottom, #088647 0%, #c8f2d1 100%);
   color: #333;
 }
+/* navbar*/
+.navbar-blur {
+  position: sticky;
+  top: 0;
+  z-index: 1050; /* Asegura que quede por encima del contenido */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  transition: background 0.3s;
+}
+.navbar-brand {
+  margin-right: 2rem;
+}
 
+.nav-card {
+  background: rgba(255,255,255,0.7);
+  opacity: 0.5;
+  border-radius: 2rem;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  padding: 0.5rem 2rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  gap: 1rem;
+}
 /* ====================================
               HERO SECTION
 ======================================== */
@@ -46,7 +78,6 @@ body {
   z-index: 2;
   padding: 1.5rem;
   text-align: center;
-  color: #fff;
 }
 
 /* Botón personalizado */
@@ -121,21 +152,40 @@ body {
 /* ====================================
              CARRUSEL DE IMÁGENES
 ======================================== */
+.carousel-inner > .carousel-item.active {
+  display: flex;
+}
 .carousel-inner > .carousel-item {
+  display: none; /* Oculta por defecto */
+  justify-content: center;
+  align-items: center;
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
 .carousel-inner > .carousel-item > img {
+  max-width: fit-content;
+  width: 100%;
   object-fit: cover;
   height: 70vh;
+  margin: 0 auto;
 }
 
 /* ====================================
           SECCIÓN: LIBROS DESTACADOS
 ======================================== */
+
+.trans-bg {
+  background: rgba(0, 0, 0, 0.7); /* Fondo blanco semitransparente */
+  border-radius: 32px;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.10);
+  padding: 2rem;
+}
 .featured-books {
-  padding: 60px 20px;
-  background-color: #f9f9f9;
+  border-radius: 32px;
+  background: rgba(255, 255, 255,100); /* Solo transparencia */
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.10);
+  padding: 2rem;
+  margin-bottom: 3rem;
 }
 
 .featured-books h2 {
@@ -265,10 +315,7 @@ body {
 .delay-3 {
   animation-delay: 0.9s;
 }
-/* Cambiar el fondo de la barra de navegación a azul pastel */
-.navbar {
-  background-color: #055e31 !important; /* Azul pastel */
-}
+
 
 /* Personaliza la sección informativa */
 .info-section {
@@ -337,18 +384,7 @@ body {
 .delay-3 {
   animation-delay: 0.9s;
 }
-/* Aseguramos que los enlaces y elementos de navegación tengan color blanco */
-.navbar a,
-.navbar .nav-item,
-.navbar .navbar-brand {
-  color: #fff !important;
-}
 
-/* Si deseas cambiar el color en el estado hover */
-.navbar a:hover,
-.navbar .nav-item:hover {
-  color: #f8f9fa !important;
-}
 /* Separa el bloque del hero con un margen extra */
 .inspirational-text {
     margin-top: auto;

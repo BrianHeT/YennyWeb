@@ -24,17 +24,15 @@
 
 <body>
     <div id=”app”>
-        <nav class="navbar navbar-expand-lg nav" id="navegador">
-            <div class="container-fluid">
-                <a class="navbar-brand nav" href="#">Yenny</a>
-
-                <button class="navbar-toggler" type="button" data-bs- toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria- label="Alternar menú de navegación">
-
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+        <nav class="navbar navbar-expand-lg navbar-blur" id="navegador">
+    <div class="container-fluid position-relative">
+        <a class="navbar-brand nav fw-bold fs-3 d-none d-lg-block" href="#">Yenny</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar menú de navegación">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 nav-card">
                         <li class="nav-item">
                             <x-nav-link route="home">
                             <span class="item-nav">Home</span>
@@ -78,6 +76,12 @@
 
                     </ul>
                 </div>
+                <a href="#" class="btn position-absolute top-0 end-0 mt-2 me-3" style="z-index:1100;" title="Carrito">
+            <i class="fas fa-shopping-cart fa-lg"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.7rem;">
+                0
+            </span>
+        </a>
             </div>
         </nav>
         <main class="p-4">

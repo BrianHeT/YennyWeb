@@ -2,8 +2,7 @@
     <x-slot:title>Bienvenido</x-slot:title>
 
     <!-- Estilos -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
 
     <!-- Hero Section -->
    <section class="hero-section position-relative">
@@ -15,14 +14,16 @@
         <!-- Sección "Regalo de Libros" -->
         <div class="book-gift animate-popIn delay-2  mx-auto">
             <p class="fs-5">¡Disfruta nuestras iconicas aventuras!</p>
-            <div class="book-slider d-flex justify-content-center mt-2">
+            <div class="book-slider d-flex justify-content-center mt-4">
                 <img src="{{ asset('storage/la_vegetariana.jpg') }}" alt="Libro 1" class="mx-1">
 <img src="{{ asset('storage/mi_nombre_es_emilia_del_valle.jpg') }}" alt="Libro 2" class="mx-1">
 <img src="{{ asset('storage/amanecer_en_la_cosecha.jpg') }}" alt="Libro 3" class="mx-1">
 
             </div>
         </div>
-        <a href="#discover" class="btn btn-discover btn-lg mt-3 animate-popIn delay-3">Comienza tu viaje</a>
+        <x-nav-link route="books.index">
+                            <span class="btn btn-discover btn-lg mt-3 animate-popIn delay-3">Comienza tu viaje </span>
+        </x-nav-link>
     </div>
 </section>
  <!-- Bloque de Texto Inspirador -->
@@ -40,18 +41,18 @@
 <div id="carouselExample" class="carousel slide my-5" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="{{ asset('storage/8eb487099ed2034e99787b1e675f4e14.jpg') }}" 
-                 class="d-block w-100" 
+            <img src="{{ asset('storage/amanecer_en_la_cosecha.jpg') }}" 
+                 class="d-block mx-auto" 
                  alt="Imagen: Amanecer en la Cosecha">
         </div>
         <div class="carousel-item">
-            <img src="{{ asset('storage/carridso.jpg') }}" 
-                 class="d-block w-100" 
+            <img src="{{ asset('storage/el_buen_mal.jpg') }}" 
+                 class="d-block mx-auto" 
                  alt="Imagen: El Buen Mal">
         </div>
         <div class="carousel-item">
-            <img src="{{ asset('storage/tres.jpg') }}" 
-                 class="d-block w-100" 
+            <img src="{{ asset('storage/este_dolor_no_es_mio.jpg') }}" 
+                 class="d-block mx-auto" 
                  alt="Imagen: Este dolor no es mío">
         </div>
     </div>
@@ -67,8 +68,8 @@
 
 
     <!-- Sección de Recomendaciones (Libros Destacados) -->
-    <section class="featured-books py-5 bg-light">
-        <div class="container">
+    <section class="featured-books trans-bg py-5 ">
+        <div class="container ">
             <h2 class="text-center mb-5 animate-fadeIn">Recomendaciones destacadas</h2>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-4 animate-popIn delay-1">
