@@ -16,8 +16,8 @@ class UserSeeder extends Seeder
     {
         // Usuario admin
         DB::table('users')->updateOrInsert(
-            ['email' => 'admin@yenny.com'],
             [
+                'email' => 'admin@yenny.com',
                 'name'       => 'admin',
                 'password'   => Hash::make('admin123'),
                 'created_at' => now(),
@@ -27,8 +27,8 @@ class UserSeeder extends Seeder
 
         // Usuario común
         DB::table('users')->updateOrInsert(
-            ['email' => 'user@yenny.com'],
             [
+                'email' => 'user@yenny.com',
                 'name'       => 'usuario',
                 'password'   => Hash::make('user123'),
                 'created_at' => now(),
