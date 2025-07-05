@@ -1,3 +1,6 @@
+<?php
+    $genreIds = $book->genres->pluck('genre_id')->all();
+?>
 <x-layout>
 
     <x-slot:title>Editar el libro {{ $book->title }}</x-slot:title>
@@ -125,6 +128,17 @@
             </label>
             <input type="text" name="cover_description" id="cover_description" class="form-control">
         </div>
+
+        <fieldset class="mb3">
+            <legend>Géneros</legend>
+            @foreach($genres as $genre)
+            <label class="me-3">
+                <input type="checkbox" name="genre_id[]" value="{{ $genre->genre_id }}" 
+                @checked(in_array($genre->genre_id, old('genre_id',[])))>
+                {{ $genre->name }}
+            </label>
+            @endforeach
+        </fieldset>
 
         <button type="submit" class="btn btn-primary">Aplicar Cambios</button>
 

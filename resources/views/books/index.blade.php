@@ -40,6 +40,12 @@ use Illuminate\Support\Str;
                                 <strong>Formato:</strong> {{ $book->format }}
                             </p>
                             <p class="card-text">
+                                <strong>Géneros:</strong>
+                                @foreach ($book->genres as $genre)
+                                    <span class="badge bg-secondary">{{ $genre->name }}</span>
+                                @endforeach
+                            </p>
+                            <p class="card-text">
                                 <strong>Sinopsis:</strong> {{ Str::limit($book->synopsis, 100) }}
                             </p>
                         </div>
