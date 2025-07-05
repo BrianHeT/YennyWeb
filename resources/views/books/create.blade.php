@@ -118,6 +118,16 @@
             @enderror
         </div>
 
+        <fieldset class="mb3">
+            <legend>Géneros</legend>
+            @foreach($genres as $genre)
+            <label class="me-3">
+                <input type="checkbox" name="genre_id[]" value="{{ $genre->genre_id }}" @checked(in_array($genre->genre_id,old('genre_id',[])))>
+                {{ $genre->name }}
+            </label>
+            @endforeach
+        </fieldset>
+
         <button type="submit" class="btn btn-primary">Publicar</button>
 
     </form>

@@ -22,7 +22,7 @@
             </div>
         </div>
         <x-nav-link route="books.index">
-                            <span class="btn btn-discover btn-lg mt-3 animate-popIn delay-3">Comienza tu viaje </span>
+                            <span class="btn btn-discover btn-lg mt-3 animate-popIn delay-3"> Comienza tu viaje </span>
         </x-nav-link>
     </div>
 </section>

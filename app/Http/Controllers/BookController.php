@@ -4,29 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
-use Illuminate\Support\Facades\Storage; // Importa la clase Storage
+use Illuminate\Support\Facades\Storage; 
+use App\Models\Genre;
 
 class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::all();
+        $allBooks = Book::with(['genres'])->get();
 
         return view('Books.index', [
-            'books' => $books
+            'books' => $allBooks
         ]);
     }
 
-    public function view(int $id)
+    public function view(Book $book)
     {
         return view('books.view', [
-            'book' => Book::findOrFail($id)
+            'book' => $book
         ]);
     }
 
     public function create()
     {
-        return view('books.create');
+        return view('books.create',[
+            'genres' => Genre::orderBy('name')->get(),
+        ]);
     }
 
     public function store(Request $request)
@@ -65,8 +68,11 @@ class BookController extends Controller
             $path = $image->storeAs('public', $filename); // Guarda la imagen en storage/app/public
             $input['image'] = $filename; // Asigna el nombre del archivo al array input
         }
+        $input = $request->all();
+        $book = Book::create($input);
+        $book->genres()->attach($input['genre_id']);
 
-        Book::create($input); // Crea el libro con los datos, incluyendo el nombre de la imagen (o null)
+        Book::create($input); 
 
         return redirect()
             ->route('books.index')
@@ -83,7 +89,10 @@ class BookController extends Controller
     public function destroy(int $id)
     {
         $book = Book::findOrFail($id);
-        // Elimina la imagen asociada antes de eliminar el registro del libro
+        
+        $book->genres()->detach();
+        $book->delete($id);
+
         if ($book->image) {
             Storage::delete('public/' . $book->image);
         }
@@ -97,7 +106,9 @@ class BookController extends Controller
     public function edit(int $id)
     {
         return view('books.edit', [
-            'book' => Book::findOrFail($id)
+            'book' => Book::findOrFail($id),
+            'genres' => Genre::orderBy('name')->get(),
+
         ]);
     }
 
@@ -126,10 +137,10 @@ class BookController extends Controller
         ]);
 
         $book = Book::findOrFail($id);
-        $input = $request->except('image'); // Obtén todos los datos excepto el archivo de imagen
+        $input = $request->except('image'); 
 
-        // Mantén la imagen existente por defecto, o establece a null si no hay una nueva y no había antes
-        $input['image'] = $book->image; // Asume la imagen actual
+        $input['image'] = $book->image; 
+
 
         if ($request->hasFile('image')) {
             // Elimina la imagen anterior si existe
@@ -147,7 +158,10 @@ class BookController extends Controller
             $input['image'] = null;
         }
 
-        $book->update($input); // Actualiza el libro con los datos, incluyendo el nombre de la imagen (o null)
+        $book->update($request->all());
+        $book->genres()->sync($request->input('genre_id'));
+
+        $book->update($input); 
 
         return redirect()
             ->route('books.index')
