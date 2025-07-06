@@ -54,44 +54,35 @@
                     </x-nav-link>
                 </li>
                 @auth
-                    @if(auth()->user()->role === 'admin')
-                        <li class="nav-item">
-                            <x-nav-link route="admin.users.index">
-                                <span class="item-nav">Dashboard</span>
-                            </x-nav-link>
-                        </li>
-                        <li class="nav-item">
-                            <form action="{{ route('auth.logout') }}" method="post">
-                                @csrf
-                                <button type="submit" class="nav-link">
-                                    <span class="item-nav">{{ auth()->user()->email }} (Cerrar Sesion)</span>
-                                </button>
-                            </form>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <form action="{{ route('auth.logout') }}" method="post">
-                                @csrf
-                                <button type="submit" class="nav-link">
-                                    <span class="item-nav">{{ auth()->user()->email }} (Cerrar Sesion)</span>
-                                </button>
-                            </form>
-                        </li>
-                    @endif
-                @else
-                    <li class="nav-item">
-                        <x-nav-link route="auth.login">
-                            <span class="item-nav">Iniciar Sesion</span>
-                        </x-nav-link>
-                    </li>
-                @endauth
+    @if(auth()->user()->role_id == 1)
+        <li class="nav-item">
+            <x-nav-link route="dashboard">
+                <span class="item-nav">Dashboard</span>
+            </x-nav-link>
+        </li>
+    @endif
+    <li class="nav-item">
+        <form action="{{ route('auth.logout') }}" method="post">
+            @csrf
+            <button type="submit" class="nav-link">
+                <span class="item-nav">{{ auth()->user()->email }} (Cerrar Sesion)</span>
+            </button>
+        </form>
+    </li>
+@else
+    <li class="nav-item">
+        <x-nav-link route="auth.login">
+            <span class="item-nav">Iniciar Sesion</span>
+        </x-nav-link>
+    </li>
+@endauth
             </ul>
         </div>
     </div>
 </nav>
 
 @auth
-    @if(auth()->user()->role !== 'admin')
+    @if(auth()->user()->role_id == 2)
         <a href="#" class=" btn position-fixed top-0 end-0 mt-2 me-3" style="z-index: 9999;" title="Carrito">
             <i class="fas fa-shopping-cart fa-lg"></i>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">

@@ -11,9 +11,11 @@ use Illuminate\Support\Str;
         <div class="text-center mb-5">
             <h1>Listado de Libros</h1>
             @auth
+            @if(auth()->user()->role_id === 1)
                 <p>
                     <a href="{{ route('books.create') }}" class="btn btn-success">Publicar un Libro</a>
                 </p>
+                @endif
             @endauth
 
             <!-- Input de búsqueda para filtrar tarjetas -->

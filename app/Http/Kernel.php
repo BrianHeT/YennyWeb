@@ -20,6 +20,9 @@ use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use App\Http\Middleware\AdminMiddleware;
+use Spatie\Permission\Middlewares\RoleMiddleware; 
+use Spatie\Permission\Middlewares\PermissionMiddleware; 
+use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware; 
 
 class Kernel extends HttpKernel
 {
@@ -62,5 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
     ];
 }
