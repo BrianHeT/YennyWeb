@@ -61,13 +61,6 @@ Route::get('/register', [\App\Http\Controllers\RegisterController::class, 'creat
 Route::post('/register', [\App\Http\Controllers\RegisterController::class, 'register'])
     ->name('register.store');
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
-    Route::get('users/{id}/edit-role', [\App\Http\Controllers\UserController::class, 'editRole'])->name('users.editRole');
-    Route::put('users/{id}/update-role', [\App\Http\Controllers\UserController::class, 'updateRole'])->name('users.updateRole');
-    
-});
-
     Route::get('novedades/lista', [\App\Http\Controllers\ArticleController::class, 'index'])
     ->name('articles.index');
 
@@ -102,4 +95,24 @@ Route::put('novedades/editar/{id}', [\App\Http\Controllers\ArticleController::cl
     ->name('articles.update')
     ->whereNumber('id')
     ->middleware('auth');
+
+    Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
+    
+});
+    
+
+    Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])
+    ->name('users.index');
+
+    Route::get('users/{id}/edit-role', [\App\Http\Controllers\UserController::class, 'editRole'])
+    ->name('users.editRole')
+    ->middleware('auth');
+
+
+    Route::put('users/{id}/update-role', [\App\Http\Controllers\UserController::class, 'updateRole'])
+    ->name('users.updateRole')
+    ->middleware('auth');
+
+
 

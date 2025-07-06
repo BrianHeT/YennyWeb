@@ -11,21 +11,21 @@ class ArticleController extends Controller
     {
         $articles = Article::latest()->paginate(10);
 
-        return view('articles.index', [
+        return view('admin.articles.index', [
             'articles' => $articles
         ]);
     }
 
     public function view(int $id)
     {
-        return view('articles.view', [
+        return view('admin.articles.view', [
             'article' => Article::findOrFail($id)
         ]);
     }
 
     public function create()
     {
-        return view('articles.create');
+        return view('admin.articles.create');
     }
 
     public function store(Request $request)
@@ -46,36 +46,36 @@ class ArticleController extends Controller
 
         $input = $request->all();
 
-        article::create($input);
+        Article::create($input);
 
 
 
         return redirect()
-            ->route('articles.index')
+            ->route('admin.articles.index')
             ->with('feedback.message', 'La noticia ' . e($input['title']) . ' se guardo exitosamente');
     }
 
     public function delete(int $id)
     {
-        return view('articles.delete', [
-            'article' => article::findOrFail($id)
+        return view('admin.articles.delete', [
+            'article' => Article::findOrFail($id)
         ]);
     }
 
     public function destroy(int $id)
     {
-        $article = article::findOrFail($id);
+        $article = Article::findOrFail($id);
         $article->delete($id);
 
         return redirect()
-            ->route('articles.index')
+            ->route('admin.articles.index')
             ->with('feedback.message', 'La noticia <b> ' . e($article->title) . ' </b> se elimino exitosamente');
     }
 
     public function edit(int $id)
     {
-        return view('articles.edit', [
-            'article' => article::findOrFail($id)
+        return view('admin.articles.edit', [
+            'article' => Article::findOrFail($id)
         ]);
     }
 
@@ -95,12 +95,12 @@ class ArticleController extends Controller
             'author.required'   => 'El nombre del autor es obligatorio.',
         ]);
 
-        $article = article::findOrFail($id);
+        $article = Article::findOrFail($id);
 
         $article->update($request->all());
 
         return redirect()
-            ->route('articles.index')
+            ->route('admin.articles.index')
             ->with('feedback.message', 'La noticia ' . e($article->title) . ' se guardo exitosamente');
     }
 }
