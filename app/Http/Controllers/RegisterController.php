@@ -22,12 +22,15 @@ class RegisterController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        User::create([
+         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
+            'role'     => 'client',
         ]);
 
-return redirect()->route('auth.login')->with('success', 'Cuenta creada correctamente.');
+Auth::login($user);
+
+return redirect()->route('home')->with('success', 'Cuenta creada correctamente.');
     }
 }

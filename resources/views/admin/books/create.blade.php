@@ -109,11 +109,11 @@
                 type="file"
                 name="image"
                 id="image"
-                class="form-control @error('image') is-invalid @enderror" {{-- ¡AGREGADO! --}}
-                @error('image') aria-invalid="true" aria-errormessage="error-image" @enderror {{-- ¡AGREGADO! --}}
-                accept="image/*" {{-- ¡RECOMENDADO! --}}
+                class="form-control @error('image') is-invalid @enderror" 
+                @error('image') aria-invalid="true" aria-errormessage="error-image" @enderror 
+                accept="image/*" 
             >
-            @error('image') {{-- ¡AGREGADO! --}}
+            @error('image') 
                 <div id="error-image" class="text-danger">{{ $message }}</div>
             @enderror
         </div>
