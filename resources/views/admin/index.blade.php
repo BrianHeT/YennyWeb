@@ -1,35 +1,44 @@
 <x-layout>
-    <x-slot:title>Panel de Administración</x-slot:title>
+  <x-slot:title>Panel de Administración</x-slot:title>
 
-    <div class="container py-5">
-        <h1 class="mb-4">Dashboard Admin</h1>
+  <h1 class="title is-2 my-4 has-text-centered">Usuarios Registrados</h1>
 
-
-        <!-- Sección Usuarios -->
-        <h2>Usuarios</h2>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Rol</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($users as $user)
-                <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ ucfirst($user->role) }}</td> 
-                    <td>
-                        <a href="{{ route('users.editRole', $user->id) }}" class="btn btn-sm btn-primary">Editar Rol</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+  <table class="table mt-6 is-fullwidth">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Administrador</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($users as $user)
+      <tr>
+        <td>{{ $user->id }}</td>
+        <td>{{ $user->name }}</td>
+        <td>{{ $user->email }}</td>
+        <td>
+          @if($user->is_admin)
+            <span class="tag is-success">Sí</span>
+          @else
+            <span class="tag is-dark">No</span>
+          @endif
+        </td>
+        <td>
+          <div class="buttons">
+            <a href="/" class="button is-primary is-small">Ver</a>
+            <a href="/" class="button is-dark is-small">Editar</a>
+            <form action="/" method="POST" style="display:inline">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="button is-danger is-small" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
 </x-layout>

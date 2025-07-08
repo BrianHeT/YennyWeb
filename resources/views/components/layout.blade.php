@@ -54,7 +54,7 @@
                     </x-nav-link>
                 </li>
                 @auth
-    @if(auth()->user()->role_id == 1)
+         @if(auth()->user()->is_admin)
         <li class="nav-item">
             <x-nav-link route="dashboard">
                 <span class="item-nav">Dashboard</span>
