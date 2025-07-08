@@ -25,13 +25,5 @@ class AdminController extends Controller
     return view('admin.index', compact('books', 'articles', 'users'));
 }
 
-public function show()
-{
-    if (!Auth::check() || Auth::user()->role_id != 1) {
-        abort(403, 'No autorizado');
-    }
-
-    return view('admin.index');
-}
 }
 

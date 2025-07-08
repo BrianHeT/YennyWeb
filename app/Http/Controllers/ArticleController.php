@@ -11,21 +11,21 @@ class ArticleController extends Controller
     {
         $articles = Article::latest()->paginate(10);
 
-        return view('admin.articles.index', [
+        return view('articles.index', [
             'articles' => $articles
         ]);
     }
 
     public function view(int $id)
     {
-        return view('admin.articles.view', [
+        return view('articles.view', [
             'article' => Article::findOrFail($id)
         ]);
     }
 
     public function create()
     {
-        return view('admin.articles.create');
+        return view('articles.create');
     }
 
     public function store(Request $request)
@@ -51,13 +51,13 @@ class ArticleController extends Controller
 
 
         return redirect()
-            ->route('admin.articles.index')
+            ->route('articles.index')
             ->with('feedback.message', 'La noticia ' . e($input['title']) . ' se guardo exitosamente');
     }
 
     public function delete(int $id)
     {
-        return view('admin.articles.delete', [
+        return view('articles.delete', [
             'article' => Article::findOrFail($id)
         ]);
     }
@@ -68,13 +68,13 @@ class ArticleController extends Controller
         $article->delete($id);
 
         return redirect()
-            ->route('admin.articles.index')
+            ->route('articles.index')
             ->with('feedback.message', 'La noticia <b> ' . e($article->title) . ' </b> se elimino exitosamente');
     }
 
     public function edit(int $id)
     {
-        return view('admin.articles.edit', [
+        return view('articles.edit', [
             'article' => Article::findOrFail($id)
         ]);
     }
@@ -100,7 +100,7 @@ class ArticleController extends Controller
         $article->update($request->all());
 
         return redirect()
-            ->route('admin.articles.index')
+            ->route('articles.index')
             ->with('feedback.message', 'La noticia ' . e($article->title) . ' se guardo exitosamente');
     }
 }

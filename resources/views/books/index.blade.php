@@ -58,7 +58,7 @@ use Illuminate\Support\Str;
                                 data-bs-target="#bookModal" 
                                 data-book='@json($book)'>Ver</button>
                             @auth
-                                @if(auth()->user()->role == 'admin')
+                            @if(auth()->user()->is_admin)
                                 <div class="btn-group">
                                     <a href="{{ route('books.edit', ['id' => $book->book_id]) }}" class="btn btn-secondary btn-sm">Editar</a>
                                     <a href="{{ route('books.delete', ['id' => $book->book_id]) }}" class="btn btn-danger btn-sm">Eliminar</a>
