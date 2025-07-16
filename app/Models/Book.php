@@ -11,7 +11,7 @@ class Book extends Model
 
     protected $primaryKey = 'book_id';
 
-    protected $fillable = ['title', 'price', 'release_date','format','editorial','author' ,'synopsis','image'];
+    protected $fillable = ['title', 'price', 'release_date','format','editorial','author' ,'synopsis','image', 'quantity'];
 
     public function genres(): BelongsToMany
     {
@@ -25,4 +25,9 @@ class Book extends Model
         
         );
     }
+
+    public function cartItems()
+{
+    return $this->hasMany(\App\Models\CartItem::class);
+}
 }

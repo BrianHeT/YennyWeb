@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
         <div class="text-center mb-5">
             <h1>Listado de Libros</h1>
             @auth
-            @if(auth()->user()->role_id === 1)
+            @if(auth()->user()->is_admin)
                 <p>
                     <a href="{{ route('books.create') }}" class="btn btn-success">Publicar un Libro</a>
                 </p>
@@ -39,7 +39,11 @@ use Illuminate\Support\Str;
                             <p class="card-text">
                                 <strong>Precio:</strong> ${{ $book->price }}<br>
                                 <strong>Publicado:</strong> {{ $book->release_date }}<br>
-                                <strong>Formato:</strong> {{ $book->format }}
+                                <strong>Formato:</strong> {{ $book->format }}<br>
+                                <strong>Disponibles:</strong> 
+                                <span class="badge {{ $book->quantity > 0 ? 'bg-success' : 'bg-danger' }}">
+                                    {{ $book->quantity }} unidades
+                                </span>
                             </p>
                             <p class="card-text">
                                 <strong>Géneros:</strong>
@@ -57,6 +61,26 @@ use Illuminate\Support\Str;
                                 data-bs-toggle="modal" 
                                 data-bs-target="#bookModal" 
                                 data-book='@json($book)'>Ver</button>
+                            
+                            @auth
+                            @if(!auth()->user()->is_admin)
+                                <!-- Formulario para agregar al carrito -->
+                                @if($book->quantity > 0)
+                                    <form action="{{ route('cart.add', $book->book_id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <div class="input-group input-group-sm mb-2" style="max-width: 150px; margin: 0 auto;">
+                                            <input type="number" name="cantidad" value="1" min="1" max="{{ $book->quantity }}" class="form-control text-center">
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                <i class="fas fa-cart-plus"></i> Agregar
+                                            </button>
+                                        </div>
+                                    </form>
+                                @else
+                                    <p class="text-danger small">Sin Stock</p>
+                                @endif
+                            @endif
+                            @endauth
+
                             @auth
                             @if(auth()->user()->is_admin)
                                 <div class="btn-group">
@@ -122,7 +146,7 @@ use Illuminate\Support\Str;
                 // Título
                 document.getElementById('modal-book-title').textContent = book.title;
                 // Detalles
-                var details = "Precio: $" + book.price + "\nPublicado: " + book.release_date + "\nFormato: " + book.format;
+                var details = "Precio: $" + book.price + "\nPublicado: " + book.release_date + "\nFormato: " + book.format + "\nDisponibles: " + book.quantity + " unidades";
                 document.getElementById('modal-book-details').textContent = details;
                 // Sinopsis completa
                 document.getElementById('modal-book-synopsis').textContent = "Sinopsis: " + book.synopsis;

@@ -54,6 +54,9 @@
                     </x-nav-link>
                 </li>
                 @auth
+                <a href="{{ route('profile.index') }}" class="nav-link">
+    <i class="fas fa-user"></i> Mi Perfil
+</a>
          @if(auth()->user()->is_admin)
         <li class="nav-item">
             <x-nav-link route="dashboard">
@@ -75,6 +78,7 @@
             <span class="item-nav">Iniciar Sesion</span>
         </x-nav-link>
     </li>
+    
 @endauth
             </ul>
         </div>
@@ -82,21 +86,13 @@
 </nav>
 
 @auth
-    @if(auth()->user()->role_id == 2)
-        <a href="#" class=" btn position-fixed top-0 end-0 mt-2 me-3" style="z-index: 9999;" title="Carrito">
+        <a href="/carrito" class=" btn position-fixed top-0 end-0 mt-2 me-3" style="z-index: 9999;" title="Carrito">
             <i class="fas fa-shopping-cart fa-lg"></i>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">
                 0
             </span>
         </a>
-    @endif
-@else
-    <a href="#" class="btn position-fixed top-0 end-0 mt-2 me-3" style="z-index: 9999;" title="Carrito">
-        <i class="fas fa-shopping-cart fa-lg"></i>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">
-            0
-        </span>
-    </a>
+        
 @endauth
             </div>
         </nav>

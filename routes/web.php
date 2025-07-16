@@ -119,5 +119,12 @@ Route::get('dashboard', [\App\Http\Controllers\AdminController::class, 'index'])
     ->name('users.updateRole')
     ->middleware('auth');
 
+    Route::get('/carrito', [\App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
+    Route::post('/carrito/agregar/{bookId}', [\App\Http\Controllers\CartController::class, 'add'])->name('cart.add');
+    Route::delete('/carrito/eliminar/{id}', [\App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
+    Route::patch('/carrito/actualizar/{id}', [\App\Http\Controllers\CartController::class, 'updateQuantity'])->name('cart.update');
 
+Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
