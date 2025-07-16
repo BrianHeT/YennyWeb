@@ -43,6 +43,23 @@
         </div>
 
         <div class="mb-3">
+            <label for="quantity" class="form-label">Cantidad en Stock</label>
+            <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                class="form-control @error('quantity') is-invalid @enderror"
+                @error('quantity') aria-invalid="true" aria-errormessage="error-quantity" @enderror
+                value="{{ old('quantity', 0) }}"
+                min="0"
+            >
+            @error('quantity')
+                <div id="error-quantity" class="text-danger">{{ $message }}</div>
+            @enderror
+            <div class="form-text">Ingresa la cantidad de libros disponibles en el inventario</div>
+        </div>
+
+        <div class="mb-3">
             <label for="release_date" class="form-label">Fecha de Estreno</label>
             <input
                 type="date"

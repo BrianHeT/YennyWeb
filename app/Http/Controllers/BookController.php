@@ -33,51 +33,58 @@ class BookController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|min:2',
-            'price' => 'required|numeric',
-            'release_date' => 'required',
-            'format' => 'required',
-            'editorial' => 'required',
-            'author' => 'required',
-            'synopsis' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // La imagen es opcional
-        ], [
-            'title.required' => 'el título debe tener un valor',
-            'title.min' => 'El titulo debe tener al menos :min caracteres',
-            'price.required' => 'el precio debe tener un valor',
-            'price.numeric' => 'el precio debe ser un valor numerico',
-            'format.required' => 'el formato debe tener un valor',
-            'editorial.required' => 'la editorial debe tener un valor',
-            'author.required' => 'el autor debe tener un valor',
-            'image.image' => 'El archivo debe ser una imagen.', // Mensaje específico para el tipo de archivo
-            'image.mimes' => 'La imagen debe ser de tipo: jpeg, png, jpg, gif.',
-            'image.max' => 'La imagen no debe exceder los 2MB.',
-        ]);
+{
+    $request->validate([
+        'title' => 'required|min:2',
+        'price' => 'required|numeric',
+        'quantity' => 'required|integer|min:0',
+        'release_date' => 'required',
+        'format' => 'required',
+        'editorial' => 'required',
+        'author' => 'required',
+        'synopsis' => 'required',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ], [
+        'title.required' => 'el título debe tener un valor',
+        'title.min' => 'El titulo debe tener al menos :min caracteres',
+        'price.required' => 'el precio debe tener un valor',
+        'price.numeric' => 'el precio debe ser un valor numerico',
+        'quantity.required' => 'la cantidad debe tener un valor',
+        'quantity.integer' => 'la cantidad debe ser un número entero',
+        'quantity.min' => 'la cantidad no puede ser negativa',
+        'format.required' => 'el formato debe tener un valor',
+        'editorial.required' => 'la editorial debe tener un valor',
+        'author.required' => 'el autor debe tener un valor',
+        'image.image' => 'El archivo debe ser una imagen.',
+        'image.mimes' => 'La imagen debe ser de tipo: jpeg, png, jpg, gif.',
+        'image.max' => 'La imagen no debe exceder los 2MB.',
+    ]);
 
-        // Obtén todos los datos del request, excluyendo el archivo de imagen por ahora
-        $input = $request->except('image');
+    // Obtén todos los datos del request, excluyendo el archivo de imagen por ahora
+    $input = $request->except('image');
 
-        // Inicializa el campo 'image' a null por si no se sube ninguna imagen
-        $input['image'] = null;
+    // Inicializa el campo 'image' a null por si no se sube ninguna imagen
+    $input['image'] = null;
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('public', $filename); // Guarda la imagen en storage/app/public
-            $input['image'] = $filename; // Asigna el nombre del archivo al array input
-        }
-        $input = $request->all();
-        $book = Book::create($input);
-        $book->genres()->attach($input['genre_id']);
-
-        Book::create($input); 
-
-        return redirect()
-            ->route('books.index')
-            ->with('feedback.message', 'El libro ' . e($input['title']) . ' se guardó exitosamente');
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+        $path = $image->storeAs('public', $filename);
+        $input['image'] = $filename;
     }
+
+    // Crear el libro
+    $book = Book::create($input);
+    
+    // Asociar géneros si existen
+    if ($request->has('genre_id')) {
+        $book->genres()->attach($request->input('genre_id'));
+    }
+
+    return redirect()
+        ->route('books.index')
+        ->with('feedback.message', 'El libro ' . e($input['title']) . ' se guardó exitosamente');
+}
 
     public function delete(int $id)
     {
@@ -115,26 +122,30 @@ class BookController extends Controller
     public function update(Request $request, int $id)
     {
         $request->validate([
-            'title' => 'required|min:2',
-            'price' => 'required|numeric',
-            'release_date' => 'required',
-            'format' => 'required',
-            'editorial' => 'required',
-            'author' => 'required',
-            'synopsis' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // La imagen es opcional
-        ], [
-            'title.required' => 'el título debe tener un valor',
-            'title.min' => 'El titulo debe tener al menos :min caracteres',
-            'price.required' => 'el precio debe tener un valor',
-            'price.numeric' => 'el precio debe ser un valor numerico',
-            'format.required' => 'el formato debe tener un valor',
-            'editorial.required' => 'la editorial debe tener un valor',
-            'author.required' => 'el autor debe tener un valor',
-            'image.image' => 'El archivo debe ser una imagen.',
-            'image.mimes' => 'La imagen debe ser de tipo: jpeg, png, jpg, gif.',
-            'image.max' => 'La imagen no debe exceder los 2MB.',
-        ]);
+        'title' => 'required|min:2',
+        'price' => 'required|numeric',
+        'quantity' => 'required|integer|min:0',
+        'release_date' => 'required',
+        'format' => 'required',
+        'editorial' => 'required',
+        'author' => 'required',
+        'synopsis' => 'required',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ], [
+        'title.required' => 'el título debe tener un valor',
+        'title.min' => 'El titulo debe tener al menos :min caracteres',
+        'price.required' => 'el precio debe tener un valor',
+        'price.numeric' => 'el precio debe ser un valor numerico',
+        'quantity.required' => 'la cantidad debe tener un valor',
+        'quantity.integer' => 'la cantidad debe ser un número entero',
+        'quantity.min' => 'la cantidad no puede ser negativa',
+        'format.required' => 'el formato debe tener un valor',
+        'editorial.required' => 'la editorial debe tener un valor',
+        'author.required' => 'el autor debe tener un valor',
+        'image.image' => 'El archivo debe ser una imagen.',
+        'image.mimes' => 'La imagen debe ser de tipo: jpeg, png, jpg, gif.',
+        'image.max' => 'La imagen no debe exceder los 2MB.',
+    ]);
 
         $book = Book::findOrFail($id);
         $input = $request->except('image'); 

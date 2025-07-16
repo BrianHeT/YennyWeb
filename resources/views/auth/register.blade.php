@@ -28,6 +28,15 @@
 
         <button type="submit" class="btn btn-success">Registrarse</button>
     </form>
+    @if ($errors->any())
+                            <div class="notification is-danger is-light mt-4">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
 
     <p class="mt-3">¿Ya tenés cuenta? <a href="{{ route('auth.login') }}">Iniciar sesión</a></p>
 </x-layout>
